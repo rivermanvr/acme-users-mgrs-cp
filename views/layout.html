@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Acme Users & Managers</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Acme Users - Managers Postgres</h2>
+      <nav class="mainnav">
+        <ul class="nav nav-tabs">
+          <li {% if nav == 'home' %} class="active" {% endif %}><a href="/">Home</a></li>
+          <li {% if nav == 'users' %} class="active" {% endif %}><a href="/users">Users ({{ userLen }})</a></li>
+          <li {% if nav == 'managers' %} class="active" {% endif %}><a href="/users/managers">Managers ({{ mgrLen }})</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container">
+    {% block content%}{% endblock %}
+    </div>
+    <footer class="container">
+      <div class="pull-right">
+        <br /><br />
+        <h6>Project work by: Vince Rios</h6>
+        <br />
+        <br />
+      </div>
+    </footer>
+  </body>
+</html>

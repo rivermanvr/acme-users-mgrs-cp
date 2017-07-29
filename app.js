@@ -8,12 +8,12 @@ swig.setDefaults({ cache: false });
 app.set('view engine', 'html');
 app.engine('html', swig.renderFile);
 
-app.use('/css', express.static(path.join(__dirname, 'css')))
+app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
-app.use('/user', routes)
+app.use('/users', routes);
 
 app.get('/', (req, res, next) => {
-  res.send('hello')
-})
+  res.render('index', { nav: 'home' });
+});
 
 module.exports = app;
