@@ -39,4 +39,14 @@ const seed = () => {
     .then(() => seedUsers())
 };
 
-module.exports = { seed };
+const listUsers = () => {
+  return db.query(`select * from users`)
+    .then(result => result.rows)
+};
+
+const listMgrs = () => {
+  return db.query(`select * from users where isMgr = 'Y'`)
+    .then(result => result.rows)
+};
+
+module.exports = { seed, listMgrs, listUsers };

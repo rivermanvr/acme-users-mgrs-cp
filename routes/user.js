@@ -9,4 +9,9 @@ router.get('/managers', (req, res, next) => {
   res.render('managers', { nav: 'managers' });
 });
 
+router.post('/', (req, res, next) => {
+  res.send('posted a new user');  
+  //res.redirect('/users');
+});
+
 module.exports = router;

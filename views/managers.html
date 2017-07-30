@@ -1,4 +1,12 @@
 {% extends './layout.html' %}
 {% block content %}
-Manager's area
+  <h3>Managers</h3>
+  {% for manager in managers %}
+    <div class="well clear">
+      {{ manager.name }}
+      <form action="/users/managers/{{ user.id }}?_method=PUT" method="POST">
+        <button class="btn btn-primary marginT pull-right moveup moveleft" type="submit">Remove as Mgr</button>
+      </form>
+    </div>
+  {% endfor %}
 {% endblock%}
