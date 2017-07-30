@@ -17,8 +17,8 @@ const sync = () => {
 
 const createUser = (name, isMgr, manager) => {
   let sql = ``;
-  if (!manager) sql = `insert into users (name, isMgr) values ('${name}', '${isMgr}')`
-  else sql = `insert into users (name, isMgr, manager) values ('${name}', '${isMgr}', '${manager}')`
+  if (!manager) sql = `insert into users (name, ismgr) values ('${name}', '${isMgr}')`
+  else sql = `insert into users (name, ismgr, manager) values ('${name}', '${isMgr}', '${manager}')`
   return db.query(sql)
 }
 
@@ -49,4 +49,24 @@ const listMgrs = () => {
     .then(result => result.rows)
 };
 
-module.exports = { seed, listMgrs, listUsers };
+function add (user, isMgr){
+  if (user) {
+    if (!isMgr) isMgr = 'N';
+    listUsers()
+      .then(users => {
+        return db.query('insert into users (name, ismgr) values ($1, $2) returning id', [ user, isMgr ]);
+      });
+  }
+}
+
+function remove(id){
+  id = id * 1;
+  return db.query('DELETE FROM users WHERE id = $1', [ id ]);
+}
+
+function change(id, isMgr){
+  id = id * 1;
+  return db.query(`UPDATE users SET ismgr = $2 WHERE id = $1`, [id, isMgr])
+}
+
+module.exports = { seed, listMgrs, listUsers, add, remove, change };

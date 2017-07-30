@@ -1,4 +1,5 @@
 const express = require( 'express' );
+const db = require( '../db' )
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -10,23 +11,24 @@ router.get('/managers', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  //code add a user
+  const isMgr = (req.body.isMgr) ? 'Y' : 'N';
+  db.add(req.body.name, isMgr)
+  res.redirect('/users')
+});
+
+router.put('/:id', (req, res, next) => {
+  db.change(req.params.id, 'Y')
   res.redirect('/users');
 });
 
-router.put('/users/:id', (req, res, next) => {
-  //code make mgr
+router.put('/managers/:id', (req, res, next) => {
+  db.change(req.params.id, 'N')
   res.redirect('/users/managers');
 });
 
-router.put('/users/managers/:id', (req, res, next) => {
-  //code remove as manager
-  res.redirect('/users/managers');
-});
-
-router.delete('/users/:id', (req, res, next) => {
-  //code delete user
-  res.redirect('/users/managers');
+router.delete('/:id', (req, res, next) => {
+  db.remove(req.params.id);
+  res.redirect('/users');
 });
 
 module.exports = router;
