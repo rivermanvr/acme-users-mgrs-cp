@@ -46,17 +46,14 @@ const listUsers = () => {
 
 const listMgrs = () => {
   return db.query(`select * from users where isMgr = 'Y'`)
-    .then(result => result.rows)
+    .then(result => result.rows);
 };
 
 function add (user, isMgr){
   if (user) {
-    if (!isMgr) isMgr = 'N';
-    listUsers()
-      .then(users => {
-        return db.query('insert into users (name, ismgr) values ($1, $2) returning id', [ user, isMgr ]);
-      });
+    return db.query('insert into users (name, ismgr) values ($1, $2)', [ user, isMgr ]);
   }
+  return 'name must be entered';
 }
 
 function remove(id){
@@ -66,7 +63,7 @@ function remove(id){
 
 function change(id, isMgr){
   id = id * 1;
-  return db.query(`UPDATE users SET ismgr = $2 WHERE id = $1`, [id, isMgr])
+  return db.query(`UPDATE users SET ismgr = $2 WHERE id = $1`, [id, isMgr]);
 }
 
 module.exports = { seed, listMgrs, listUsers, add, remove, change };

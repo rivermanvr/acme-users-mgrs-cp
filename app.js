@@ -20,6 +20,7 @@ app.use('/vendor', express.static(path.join(__dirname, 'node_modules')));
 app.use((req, res, next) => {
   db.listUsers()
     .then(users => {
+      res.locals.error = '';
       res.locals.users = users;
       res.locals.userLen = users.length;
       return db.listMgrs()
