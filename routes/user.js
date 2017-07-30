@@ -10,8 +10,23 @@ router.get('/managers', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  res.send('posted a new user');  
-  //res.redirect('/users');
+  //code add a user
+  res.redirect('/users');
+});
+
+router.put('/users/:id', (req, res, next) => {
+  //code make mgr
+  res.redirect('/users/managers');
+});
+
+router.put('/users/managers/:id', (req, res, next) => {
+  //code remove as manager
+  res.redirect('/users/managers');
+});
+
+router.delete('/users/:id', (req, res, next) => {
+  //code delete user
+  res.redirect('/users/managers');
 });
 
 module.exports = router;
